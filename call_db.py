@@ -7,6 +7,7 @@ class Database:
         cur = conn.cursor()
         cur.execute(
                     "CREATE TABLE IF NOT EXISTS stock("
+                    "id SERIAL PRIMARY KEY,"
                     "title VARCHAR(50) UNIQUE NOT NULL,"
                     "garment VARCHAR(50) NOT NULL,"
                     "colour VARCHAR(50) NOT NULL,"
@@ -46,4 +47,18 @@ class Database:
         conn.close()
         
         for data in values:
-            print(data)
+            return data
+            
+    def remove_from_db(self, item_to_remove):
+        conn = connect("stock_tracker.db")
+        cur = conn.cursor()
+        cur.execute(
+                    "DELETE FROM stock,"
+                    "WHERE title = (?)",
+                    item_to_remove
+                    )
+        conn.commit()
+        conn.close()
+        
+        print("{item_to_remove} has been removed from stocklist")
+            

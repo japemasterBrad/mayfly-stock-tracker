@@ -39,23 +39,20 @@ class Database:
     def view_db(self):
         conn = connect("stock_tracker.db")
         cur = conn.cursor()
-        cur.execute(
-                    "SELECT * FROM stock"
-                    )
+        for row in cur.execute("SELECT * FROM stock"):
+            print(row)
         values = cur.fetchall()
         conn.commit()
         conn.close()
         
-        for data in values:
-            return data
+        # for data in values:
+        #     return row
             
     def remove_from_db(self, item_to_remove):
         conn = connect("stock_tracker.db")
         cur = conn.cursor()
         cur.execute(
-                    "DELETE FROM stock,"
-                    "WHERE title = (?)",
-                    item_to_remove
+                    "DELETE FROM stock WHERE title = ?", (item_to_remove)
                     )
         conn.commit()
         conn.close()

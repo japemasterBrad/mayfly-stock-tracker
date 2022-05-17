@@ -1,7 +1,6 @@
-#from regex import P
 from database import Database
 from pandas import *
-import os
+from os import system
 
 tshirt_cost_make = 4.75
 tshirt_cost_sell = 15.0
@@ -27,15 +26,18 @@ if __name__ == "__main__":
         db.add_to_db(title, garment, colour, price_to_make, price_to_sell)
         
     def view_all_stock_items():
-        data = db.view_db()
+        datas = db.view_db()
         
         #df = DataFrame(data)
         # df.index = data[0]
         
         # print(df)
     
-    os.system("clear")
+    system("clear")
     user_input = int(input("What you wanna' do?\n"))
+
+#    df = DataFrame(data = mayday_tshirt, index=RangeIndex)
+#    print(df)
     
     def list_all_stock_items():
         items = db.view_db()
@@ -45,8 +47,8 @@ if __name__ == "__main__":
         print(item_dict)
     
     def remove_stock_item():
-        items = db.view_db
-        list_all_stock = DataFrame(data=items, index=None, columns=None, dtype=None, copy=None)
+        items = db.view_db()
+        list_all_stock = DataFrame(data=items)
         
         # PRINT ALL ITEMS IN DB
         print(list_all_stock)
@@ -54,11 +56,30 @@ if __name__ == "__main__":
         user_input = input("Title of the item you'd like to remove: ")
         db.remove_from_db(user_input)
     
-    if user_input == 1:
-        add_new_stock_item()
-    elif user_input == 2:
-        view_all_stock_items()
-    elif user_input == 3:
-        remove_stock_item()
-    elif user_input == 4:
-        list_all_stock_items()
+
+        print(db.remove_from_db())
+   
+    
+    def menu():
+        menu = True
+
+        system("clear") 
+        user_input = input("What you wanna' do?\n")
+
+        while (menu):
+            if user_input == "1":
+                menu = False
+                add_new_stock_item()
+            elif user_input == "2":
+                menu = False
+                view_all_stock_items()
+            elif user_input == "3":
+                menu = False
+                remove_stock_item()
+            elif user_input == "4":
+                menu = False
+                print("This is option 4")
+            else:
+                continue
+            
+    menu()

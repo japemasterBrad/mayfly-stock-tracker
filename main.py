@@ -1,6 +1,7 @@
 #from regex import P
-from call_db import Database
+from database import Database
 from pandas import *
+import os
 
 tshirt_cost_make = 4.75
 tshirt_cost_sell = 15.0
@@ -28,14 +29,28 @@ if __name__ == "__main__":
     def view_all_stock_items():
         data = db.view_db()
         
-        df = DataFrame(data)
-        df.index = data[0]
+        #df = DataFrame(data)
+        # df.index = data[0]
         
-        print(df)
-        
+        # print(df)
+    
+    os.system("clear")
     user_input = int(input("What you wanna' do?\n"))
     
+    def list_all_stock_items():
+        items = db.view_db()
+        
+        item_dict = []
+        item_dict.append(items)
+        print(item_dict)
+    
     def remove_stock_item():
+        items = db.view_db
+        list_all_stock = DataFrame(data=items, index=None, columns=None, dtype=None, copy=None)
+        
+        # PRINT ALL ITEMS IN DB
+        print(list_all_stock)
+        
         user_input = input("Title of the item you'd like to remove: ")
         db.remove_from_db(user_input)
     
@@ -45,3 +60,5 @@ if __name__ == "__main__":
         view_all_stock_items()
     elif user_input == 3:
         remove_stock_item()
+    elif user_input == 4:
+        list_all_stock_items()
